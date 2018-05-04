@@ -1,9 +1,16 @@
-import os
-import sys
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__),".."))
-sys.path.append(BASE_DIR)
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
 
-from config import DB
+# -------------------------------------------------------------------------
+# 程序：mysql.py
+# 作者：zhangxiaofei
+# 日期：2018-04-28
+# 功能：Mysql操作类
+# -------------------------------------------------------------------------
+
+
+
+from config.config import DB
 from sqlalchemy import ForeignKey
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, Sequence
