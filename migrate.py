@@ -9,7 +9,7 @@
 # -------------------------------------------------------------------------
 
 from migrator import Migrator
-from tools.migrate.options import Options
+from libs.migrate.options import Options
 
 migrate = Migrator('migrates')
 
