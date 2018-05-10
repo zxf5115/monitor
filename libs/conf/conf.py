@@ -49,3 +49,17 @@ class Conf:
     port     = self.conf.get("mysql", "port")
 
     return host, username, password, dbname, port
+
+
+
+
+
+  # -----------------------------------------------------------------------
+  # 获取 System 配置信息
+
+  def get_system_conf_info(self):
+
+    debug = self.conf.get('system', 'debug')
+    port  = self.conf.get('system', 'port')
+
+    return debug, port

@@ -8,7 +8,6 @@
 # 功能：migrate 基类
 # -------------------------------------------------------------------------
 
-from ..conf.conf import Conf
 from ..database.mysql import Mysql
 
 class Migration:
@@ -187,16 +186,10 @@ class Migration:
 
   def mysql(self):
 
-    # 获取配置
-    conf = Conf()
+    # 获取连接对象
+    conn = Mysql.connection()
 
-    # 得到mysql配置文件
-    host, username, password, dbname, port = conf.get_mysql_conf_info()
-
-    # 实例化 Mysql 对象
-    self.mysql = Mysql(host, username, password, dbname, int(port))
-
-    return self.mysql
+    return conn
 
 
   def sqlite(self):
