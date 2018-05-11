@@ -1,29 +1,99 @@
 #!/usr/bin/python3
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 # -------------------------------------------------------------------------
-# 程序：migrate.py
+# 程序：base.py
 # 作者：zhangxiaofei
-# 日期：2018-04-27
-# 功能：选项类
+# 日期：2018-05-09
+# 功能：model基础类
 # -------------------------------------------------------------------------
 
-from libs.migrate.migrator import Migrator
-from libs.migrate.options import Options
+import os
+import tornado.ioloop
+import tornado.web
+import tornado.locale
+import tornado.escape
+from tornado.options import define, options
 
-migrate = Migrator('migrates')
+from libs.conf.conf import Conf
+from controllers.common import *
 
-# python migrate.py --init
-# python migrate.py --create-migration create_users
-options = Options()
-options.add('-init', migrate.init)
-options.add('-migrate', 'migrate')
-options.add('-rollback', 'rollback')
-options.add('-create', migrate.create)
-options.add('-execute', migrate.execute)
-options.add('-remove', 'remove_migration')
-options.add('-load-schema', 'load_schema')
-options.add('-dump-schema', 'dump_schema')
-options.add('-dump-migration', 'dump_migration')
 
-options.execute()
+class Run:
+
+  def __init__(self):
+
+    conf = Conf()
+    debug, port = conf.get_system_conf_info()
+
+
+    self.handlers = [
+      # (r"/", InfoHandler),
+      # (r"/login", LoginHandler),
+      # (r"/register", RegisterHandler),
+      # (r"/logout", LogoutHandler),
+      (r"/index", IndexHandler),
+      # (r"/admin", IndexHandler),
+      # (r"/info", InfoHandler),
+      # (r"/info/filter/([0-9]+)/page/([0-9]+)", InfoFilterHandler),
+      # (r"/info/company/search", InfoCompanySearchHandler),
+      # (r"/oversea/filter/([0-9]+)/page/([0-9]+)", OverseaFilterHandler),
+      # (r"/oversea/company/search", OverseaCompanySearchHandler),
+      # (r"/info/page/([0-9]+)", InfoPageHandler),
+      # (r"/oversea/page/([0-9]+)", OverseaPageHandler),
+      # (r"/oversea", OverseaInfoHandler),
+      # (r"/keyword", KeywordHandler),
+      # (r"/keyword/delete", KeywordDeleteHandler),
+      # (r"/report", ReportHandler),
+      # (r"/report/add", ReportAddHandler),
+      # (r"/report/delete", ReportDeleteHandler),
+      # (r"/report/detail/([0-9]+)", ReportDetailHandler),
+      # (r"/company", CompanyHandler),
+      # (r"/company/add", CompanyAddHandler),
+      # (r"/company/search", CompanySearchHandler),
+      # (r"/profile/([0-9]+)", ProfileHandler),
+      # (r"/profile/edit/([0-9]+)", ProfileEditHandler),
+      # (r"/contact/add/([0-9]+)", ContactAddHandler),
+      # (r"/contact/delete", ContactDeleteHandler),
+      # (r"/website/add/([0-9]+)", WebsiteAddHandler),
+      # (r"/website", WebsiteHandler),
+      # (r"/subscription", SubscriptionHandler),
+      # (r"/company/delete", CompanyDeleteHandler),
+      # (r"/website/delete", WebsiteDeleteHandler),
+      # (r"/user/manage", UserManageHandler),
+      # (r"/user/delete", UserDeleteHandler),
+      # (r"/log", LogHandler),
+      # (r"/clean", CleanHandler),
+    ]
+
+
+    self.settings = dict(
+      cookie_secret = "61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o",
+      login_url     = "/login",
+      template_path = os.path.join(os.path.dirname(__file__), "views"),
+      static_path   = os.path.join(os.path.dirname(__file__), "static"),
+      xsrf_cookies  = True,
+      # ui_modules    = uimodules,
+      debug         = debug,
+    )
+
+
+    i18n_path = os.path.join(os.path.dirname(__file__), 'i18n/locales')
+
+    tornado.locale.load_gettext_translations(i18n_path, 'zh_CN')
+
+    tornado.locale.set_default_locale('zh_CN')
+
+    application = tornado.web.Application(self.handlers, **self.settings)
+
+    application.listen(port)
+
+    print("App Start running at: http://127.0.0.1:{port}".format(port=port))
+
+    tornado.ioloop.IOLoop.instance().start()
+
+
+
+if __name__ == '__main__':
+
+  Run()
