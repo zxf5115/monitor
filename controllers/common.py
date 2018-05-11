@@ -20,16 +20,28 @@ from .base import BaseHandler
 
 class IndexHandler(BaseHandler):
 
-  @tornado.web.authenticated
-  def get(self):
+    """
+    获取所有个公司的feed
+    """
+    @tornado.web.authenticated
+    def get(self):
 
-    self.render("index.html")
+      print(1)
+      exit()
+      # feeds = get_info_feed(TIME_LIMIT)
+      # oversea_feeds = get_oversea_info_feed(TIME_LIMIT)
+      # total_page = len(feeds) // ITEMS_NUM_PERPAGE + 1
+      # page_num = 1
+      # start = ITEMS_NUM_PERPAGE * (page_num - 1)
+      # end = ITEMS_NUM_PERPAGE * page_num
+      # feeds = feeds[start:end]
+
+      # self.render("information.html", feeds=feeds, oversea_feeds=oversea_feeds, total_page=total_page,
+      #             current_page=page_num)
 
 
 
 
-# define("port", default=8888, help="run on the given port", type=int)
-# define("debug", default=True, type=bool)
 
 
 

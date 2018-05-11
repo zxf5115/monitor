@@ -8,26 +8,26 @@
 # 功能：基础类
 # -------------------------------------------------------------------------
 
-import os
+
 import tornado.ioloop
 import tornado.web
 import tornado.locale
 import tornado.escape
 from tornado.options import define, options
 
-class BaseHandler(tornado.web.RequestHandler):
 
-  # -----------------------------------------------------------------------
-  # 得到当前用户
+class LoginHandler(tornado.web.RequestHandler):
 
-  def get_current_user(self):
+  def get(self):
+    self.render("login.html")
 
-    user_id = self.get_secure_cookie("user")
+  def post(self):
+    email = self.get_argument("email")
+    password = self.get_argument("password")
+    auth = authenticate(email=email, password=password)
 
-    if not user_id:
+    if auth["success"]:
 
-      return None
+      self.set_secure_cookie("user", str(auth["user_id"]))
 
-    user = get_user(u_id=int(user_id))
-
-    return user
+    self.write(auth)

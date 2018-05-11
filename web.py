@@ -15,8 +15,14 @@ import tornado.locale
 import tornado.escape
 from tornado.options import define, options
 
+import uimodules
+
 from libs.conf.conf import Conf
 from controllers.common import *
+from controllers.login import *
+from controllers.register import *
+
+
 
 
 class Run:
@@ -28,9 +34,9 @@ class Run:
 
 
     self.handlers = [
-      # (r"/", InfoHandler),
-      # (r"/login", LoginHandler),
-      # (r"/register", RegisterHandler),
+      (r"/", IndexHandler),
+      (r"/login", LoginHandler),
+      (r"/register", RegisterHandler),
       # (r"/logout", LogoutHandler),
       (r"/index", IndexHandler),
       # (r"/admin", IndexHandler),
@@ -73,7 +79,7 @@ class Run:
       template_path = os.path.join(os.path.dirname(__file__), "views"),
       static_path   = os.path.join(os.path.dirname(__file__), "static"),
       xsrf_cookies  = True,
-      # ui_modules    = uimodules,
+      ui_modules    = uimodules,
       debug         = debug,
     )
 

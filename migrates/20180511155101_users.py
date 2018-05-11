@@ -65,6 +65,8 @@ class Model(Migration):
 
 
 
+
+
   # -----------------------------------------------------------------------
   # 执行创建命令
 
@@ -79,6 +81,8 @@ class Model(Migration):
       self.varchar('password', 32, '', '密码')
 
       self.varchar('email', 50, '', '邮箱')
+
+      self.varchar('encrypt', 32, '', '加密字符串')
 
       self.tinyint('is_admin',1, 0, '是否是管理员')
 
@@ -117,6 +121,13 @@ class Model(Migration):
 
       pass
 
+      # timestamp = int(time.time())
+
+      # sql = "insert into users (version, create_time) values (%s,%s)"
+      # data= [['00000000000001_migration.py', timestamp]]
+
+      # self.insert(sql, data)
+
     except Exception as e:
 
       print(e)
@@ -125,5 +136,5 @@ class Model(Migration):
 
 if __name__ == '__main__':
 
-  model = Model('user')
+  model = Model('users')
   model.up()

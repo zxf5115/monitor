@@ -41,16 +41,98 @@ class Mysql:
 
 
 
-  # -----------------------------------------------------------------------
-  # 查询
+# -----------------------------------------------------------------------
+  # 插入数据表操作
 
-  def select(self, table, field = '*', where = "", group = "", order = ""):
+  def insert(self, table, field, value):
 
     # 使用cursor()方法获取操作游标
-    cursor = self.cursor()
+    cursor = self.db.cursor()
+
+    # SQL 插入语句
+    sql = "INSERT INTO %s (%s) VALUES (%s)" % (table, field, value)
+
+    try:
+      # 执行sql语句
+      cursor.execute(sql)
+      # 提交到数据库执行
+      self.db.commit()
+    except Exception as e:
+      print(e)
+      # 如果发生错误则回滚
+      self.db.rollback()
+
+    # 关闭游标
+    cursor.close()
+
+
+
+
+  # -----------------------------------------------------------------------
+  # 删除数据
+
+  def delete(self, table, where = "1"):
+
+    # 使用cursor()方法获取操作游标
+    cursor = self.db.cursor()
+
+    # SQL 删除语句
+    sql = "DELETE FROM `%s` WHERE %s" % (table, where)
+
+    try:
+       # 执行SQL语句
+       cursor.execute(sql)
+       # 提交修改
+       self.db.commit()
+    except:
+       # 发生错误时回滚
+       self.db.rollback()
+
+    # 关闭连接
+    db.close()
+
+
+
+
+  # -----------------------------------------------------------------------
+  # 更新数据
+
+  def update(self, table, field, value, where = "1"):
+
+    # 使用cursor()方法获取操作游标
+    cursor = self.db.cursor()
+
+    # SQL 更新语句
+    sql = "UPDATE `%s` SET `%s` = '%s' WHERE %s " % (table, field, value, where)
+
+    try:
+       # 执行SQL语句
+       cursor.execute(sql)
+       # 提交到数据库执行
+       self.db.commit()
+    except:
+       # 发生错误时回滚
+       self.db.rollback()
+
+    # 关闭数据库连接
+    db.close()
+
+
+
+
+  # -----------------------------------------------------------------------
+  # 查询数据
+  # fetchone(): 该方法获取下一个查询结果集。结果集是一个对象
+  # fetchall(): 接收全部的返回结果行.
+  # rowcount: 这是一个只读属性，并返回执行execute()方法后影响的行数。
+
+  def select(self, table, field = '*', where = "1", group = "", order = ""):
+
+    # 使用cursor()方法获取操作游标
+    cursor = self.db.cursor()
 
     # SQL 查询语句
-    sql = "SELECT %s FROM %s %s %s %s " % (field, table, where, group, order)
+    sql = "SELECT %s FROM %s WHERE %s %s %s " % (field, table, where, group, order)
 
     try:
       # 执行SQL语句
@@ -66,6 +148,11 @@ class Mysql:
 
     # 关闭数据库连接
     self.close()
+
+
+
+
+
 
 
   # -----------------------------------------------------------------------
