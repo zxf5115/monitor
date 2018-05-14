@@ -15,16 +15,17 @@ import tornado.locale
 import tornado.escape
 from tornado.options import define, options
 
+from models.users import Users
 
 class LoginHandler(tornado.web.RequestHandler):
 
   def get(self):
-    self.render("login.html")
+    self.render("login/login.html")
 
   def post(self):
     email = self.get_argument("email")
     password = self.get_argument("password")
-    auth = authenticate(email=email, password=password)
+    auth = Users().authenticate(email=email, password=password)
 
     if auth["success"]:
 

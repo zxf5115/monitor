@@ -15,6 +15,8 @@ import tornado.locale
 import tornado.escape
 from tornado.options import define, options
 
+from models.users import Users
+
 class BaseHandler(tornado.web.RequestHandler):
 
   # -----------------------------------------------------------------------
@@ -28,6 +30,6 @@ class BaseHandler(tornado.web.RequestHandler):
 
       return None
 
-    user = get_user(u_id=int(user_id))
+    user = Users().get_user_info(int(user_id))
 
     return user

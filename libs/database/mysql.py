@@ -153,6 +153,39 @@ class Mysql:
 
 
 
+  # -----------------------------------------------------------------------
+  # 查询数据
+  # fetchone(): 该方法获取下一个查询结果集。结果集是一个对象
+  # fetchall(): 接收全部的返回结果行.
+  # rowcount: 这是一个只读属性，并返回执行execute()方法后影响的行数。
+
+  def find(self, table, field = '*', where = "1", group = "", order = ""):
+
+    # 使用cursor()方法获取操作游标
+    cursor = self.db.cursor()
+
+    # SQL 查询语句
+    sql = "SELECT %s FROM %s WHERE %s %s %s " % (field, table, where, group, order)
+
+    try:
+      # 执行SQL语句
+      cursor.execute(sql)
+
+      # 返回查询结果
+      return cursor.fetchone()
+    except:
+      print ("Error: unable to fetch data")
+
+    # 关闭游标
+    cursor.close()
+
+    # 关闭数据库连接
+    self.close()
+
+
+
+
+
 
 
   # -----------------------------------------------------------------------

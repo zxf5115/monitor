@@ -18,8 +18,10 @@ from tornado.options import define, options
 import uimodules
 
 from libs.conf.conf import Conf
-from controllers.common import *
+from controllers.main import *
+from controllers.index import *
 from controllers.login import *
+from controllers.logout import *
 from controllers.register import *
 
 
@@ -37,7 +39,7 @@ class Run:
       (r"/", IndexHandler),
       (r"/login", LoginHandler),
       (r"/register", RegisterHandler),
-      # (r"/logout", LogoutHandler),
+      (r"/logout", LogoutHandler),
       (r"/index", IndexHandler),
       # (r"/admin", IndexHandler),
       # (r"/info", InfoHandler),
@@ -74,7 +76,7 @@ class Run:
 
 
     self.settings = dict(
-      cookie_secret = "61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o",
+      cookie_secret = "61oEuYhFp2XdEQA7mGeJJGaYdkL5gETzKXTP1oQn",
       login_url     = "/login",
       template_path = os.path.join(os.path.dirname(__file__), "views"),
       static_path   = os.path.join(os.path.dirname(__file__), "static"),

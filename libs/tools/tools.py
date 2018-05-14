@@ -23,6 +23,21 @@ def encryption(text):
   return code, timestamp
 
 
+
+def decryption(text, encrypt):
+
+  salt = "%s%s" % (text, encrypt)
+
+  code = hashlib.md5(salt.encode(encoding='utf-8')).hexdigest()
+
+  return code
+
+
+
+
+
+
+
 def timestamp():
 
   timestamp = time.time()

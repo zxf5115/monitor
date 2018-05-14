@@ -61,3 +61,13 @@ class Base:
   def select(self, field = '*', where = "", group = "", order = ""):
 
     return self.handle.select(self.table_name, field, where, group, order)
+
+
+
+  # -----------------------------------------------------------------------
+  # 查询数据
+
+  def find(self, field = '*', where = "", group = "", order = ""):
+
+    return self.handle.find(self.table_name, field, where, group, order)
+

@@ -57,3 +57,57 @@ class Users(Base):
       # session.rollback()
       res["msg"] = "创建出错"
       return res
+
+
+
+
+  def get_user_info(self, uid = 0):
+
+    try:
+
+      res = {"success": False, "msg": ""}
+
+      if not uid:
+
+        res["msg"] = "UID不能为空"
+        return res
+
+      where = "id = '%s'" % (uid)
+
+      user = self.select('id', where)
+
+      return user
+
+    except Exception as e:
+
+      print(e)
+
+
+
+
+
+
+  def authenticate(self, email=None, password=None):
+
+    res = {"success": False, "msg": "", "user_id": None}
+
+    where = "email = '%s'" % (email)
+
+    user = self.find('id, encrypt, email, password', where)
+
+    if not user:
+
+      res["msg"] = "用户名不存在"
+      return res
+
+    password = decryption(password, user[1])
+
+    if user[3] != password:
+      res["msg"] = "用户名与密码不符"
+      return res
+
+    res["success"] = True
+    res["user_id"] = user[0]
+    res["msg"] = "认证成功"
+    return res
+# c9e81949a181e2e1b903530afcbfe563
