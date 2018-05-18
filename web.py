@@ -23,6 +23,7 @@ from controllers.index import *
 from controllers.login import *
 from controllers.logout import *
 from controllers.register import *
+from controllers.users import *
 
 
 
@@ -68,8 +69,8 @@ class Run:
       # (r"/subscription", SubscriptionHandler),
       # (r"/company/delete", CompanyDeleteHandler),
       # (r"/website/delete", WebsiteDeleteHandler),
-      # (r"/user/manage", UserManageHandler),
-      # (r"/user/delete", UserDeleteHandler),
+      (r"/user/manage", UserManageHandler),
+      (r"/user/delete", UserDeleteHandler),
       # (r"/log", LogHandler),
       # (r"/clean", CleanHandler),
     ]

@@ -15,23 +15,17 @@ import tornado.locale
 import tornado.escape
 from tornado.options import define, options
 
-from base import BaseHandler
-
-
-
-define("port", default=8888, help="run on the given port", type=int)
-define("debug", default=True, type=bool)
-
-
-
+from .base import BaseHandler
+from models.users import Users
 
 class UserManageHandler(BaseHandler):
 
   @tornado.web.authenticated
   def get(self):
 
-    users = get_users()
-    self.render("user_manage.html", users=users)
+    users = Users().get_user_info(0, '*')
+    print(users[0])
+    self.render("users\\user_manage.html", users=users)
 
 
 class UserDeleteHandler(BaseHandler):

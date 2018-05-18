@@ -61,20 +61,24 @@ class Users(Base):
 
 
 
-  def get_user_info(self, uid = 0):
+  def get_user_info(self, uid = 0, field = 'id'):
 
     try:
 
       res = {"success": False, "msg": ""}
 
-      if not uid:
+      # if not uid:
 
-        res["msg"] = "UID不能为空"
-        return res
+      #   res["msg"] = "UID不能为空"
+      #   return res
 
-      where = "id = '%s'" % (uid)
+      where = '1'
 
-      user = self.select('id', where)
+      if uid:
+
+        where = "id = '%s'" % (uid)
+
+      user = self.select(field, where)
 
       return user
 
@@ -100,14 +104,14 @@ class Users(Base):
       res["msg"] = "用户名不存在"
       return res
 
-    password = decryption(password, user[1])
+    password = decryption(password, user['encrypt'])
 
-    if user[3] != password:
+    if user['password'] != password:
       res["msg"] = "用户名与密码不符"
       return res
 
     res["success"] = True
-    res["user_id"] = user[0]
+    res["user_id"] = user['id']
     res["msg"] = "认证成功"
     return res
 # c9e81949a181e2e1b903530afcbfe563

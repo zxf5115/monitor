@@ -20,7 +20,7 @@ class Mysql:
   def __init__(self, host, username, password, dbname, port=3306):
 
     # 打开数据库连接
-    self.db = pymysql.connect(host=host, port=port, user=username, passwd=password, db=dbname, charset='utf8')
+    self.db = pymysql.connect(host=host, port=port, user=username, passwd=password, db=dbname, charset='utf8', cursorclass=pymysql.cursors.DictCursor)
 
 
 
@@ -133,7 +133,7 @@ class Mysql:
 
     # SQL 查询语句
     sql = "SELECT %s FROM %s WHERE %s %s %s " % (field, table, where, group, order)
-
+    print(sql)
     try:
       # 执行SQL语句
       cursor.execute(sql)
@@ -147,7 +147,7 @@ class Mysql:
     cursor.close()
 
     # 关闭数据库连接
-    self.close()
+    self.db.close()
 
 
 
@@ -180,7 +180,7 @@ class Mysql:
     cursor.close()
 
     # 关闭数据库连接
-    self.close()
+    self.db.close()
 
 
 
