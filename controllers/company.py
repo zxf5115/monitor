@@ -15,34 +15,16 @@ import tornado.locale
 import tornado.escape
 from tornado.options import define, options
 
-from base import BaseHandler
-
-
-
-define("port", default=8888, help="run on the given port", type=int)
-define("debug", default=True, type=bool)
-
-
-
-class CompanyAddHandler(BaseHandler):
-
-  @tornado.web.authenticated
-  def get(self):
-
-    self.render("company_add.html")
-
-
-
-
-
+from .base import BaseHandler
+from models.company import Company
 
 class CompanyHandler(BaseHandler):
 
   @tornado.web.authenticated
   def get(self):
 
-    companies = get_companies()
-    self.render("company.html", companies=companies)
+    companies = Company().get_user_info(0, '*')
+    self.render("company\\index.html", companies=companies)
 
 
 
@@ -50,17 +32,18 @@ class CompanyHandler(BaseHandler):
   def post(self):
 
     res = {"success": False, "msg": ""}
-    name_cn = self.get_argument("name_cn")
-    name_en = self.get_argument("name_en")
+
+    chinese_name = self.get_argument("chinese_name")
+    english_name = self.get_argument("english_name")
     industry = self.get_argument("industry")
 
-    if not name_cn:
+    if not chinese_name:
 
       res["msg"] = "中文名称不能为空"
       self.finish(res)
       return
 
-    if not name_en:
+    if not english_name:
 
       res["msg"] = "英文名称不能为空"
       self.finish(res)
@@ -73,8 +56,8 @@ class CompanyHandler(BaseHandler):
       return
 
     info = {
-      "name_cn": name_cn,
-      "name_en": name_en,
+      "chinese_name": chinese_name,
+      "english_name": english_name,
       "industry": industry
     }
 
@@ -91,6 +74,35 @@ class CompanyHandler(BaseHandler):
       res["msg"] = "创建成功"
       res["company_id"] = result["company"].id
       self.write(res)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class CompanyAddHandler(BaseHandler):
+
+  @tornado.web.authenticated
+  def get(self):
+
+    self.render("company\\add.html")
+
+
+
+
 
 
 

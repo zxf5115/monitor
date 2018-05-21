@@ -1,25 +1,28 @@
-{% extends "base.html" %}
+{% extends "../public/base.html" %}
 
 {% block main %}
 
-{% include "navbar.html" %}
+{% include "../public/navbar.html" %}
 
 
-<div style="margin: auto; padding: 200px 20px 0 20px; width: 360px;">
+<div style="margin: auto; padding: 100px 20px 0 20px; width: 360px;">
   <form class="form-horizontal" id="CreateCompanyForm" method="post" action="">
     {% module xsrf_form_html() %}
       <h2>添加公司</h2>
       <div class="mdui-textfield">
-          <input class="mdui-textfield-input" type="text" name="name_cn" placeholder="中文名称"/>
+          <input class="mdui-textfield-input" type="text" name="chinese_name" placeholder="中文名称"/>
       </div>
       <div class="mdui-textfield">
-          <input class="mdui-textfield-input" type="text" name="name_en" placeholder="英文名称"/>
+          <input class="mdui-textfield-input" type="text" name="english_name" placeholder="英文名称"/>
       </div>
       <div class="mdui-textfield">
          <input class="mdui-textfield-input" type="text" name="industry" placeholder="所属行业"/>
       </div>
-      <a href="javascript:history.go(-1);" class="mdui-btn mdui-btn-raised">取消</a>
-      <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red" type="button" id="create-company-submit">添加</button>
+      <div class="mdui-textfield">
+         <input class="mdui-textfield-input" type="text" name="website" placeholder="公司官网"/>
+      </div>
+      <a href="javascript:history.go(-1);" class="mdui-btn mdui-btn-raised mdui-color-red">取消</a>
+      <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-green-800" type="button" id="create-company-submit">添加</button>
   </form>
 </div>
 
