@@ -4,7 +4,7 @@ index.html{% extends "../public/base.html" %}
 
 {% include "../public/navbar.html" %}
 
-<div style="margin: 20px; font-size: 12px">
+<div class="content">
     <div style="margin: 60px 0px 0 20px; width: 300px; ">
         <form class="form-horizontal" id="SearchForm" method="post" action="/company/search">
         {% module xsrf_form_html() %}
@@ -19,17 +19,17 @@ index.html{% extends "../public/base.html" %}
     <a href="/company/add" class="mdui-btn-xs mdui-ripple" style="margin: -60px 0 0 600px;">+添加</a>
 
     <div style="margin: 20px 0">
-      <table>
+      <table class="mdui-table">
         <tbody>
             {% for index, company in enumerate(companies) %}
             <tr>
                 <td>{{ index+1 }}</td>
-                <td><a href="/profile/{{ company.id }}">{{ company.name_cn }}</a></td>
-                <td>{{ company.name_en }}</td>
-                <td>{{ company.industry }}</td>
+                <td><a href="/profile/{{ company['id'] }}">{{ company['chinese_name'] }}</a></td>
+                <td>{{ company['english_name'] }}</td>
+                <td>{{ company['industry'] }}</td>
                 <td>
-                    <button class="mdui-btn-xs company-delete" type="button"
-                            id="{{ company.id }}">删除</button>
+                    <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red company-delete" type="button"
+                            id="{{ company['id'] }}">删除</button>
                 </td>
             </tr>
             {% end %}

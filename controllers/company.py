@@ -24,6 +24,8 @@ class CompanyHandler(BaseHandler):
   def get(self):
 
     companies = Company().get_user_info(0, '*')
+    print(companies)
+
     self.render("company\\index.html", companies=companies)
 
 
@@ -36,6 +38,8 @@ class CompanyHandler(BaseHandler):
     chinese_name = self.get_argument("chinese_name")
     english_name = self.get_argument("english_name")
     industry = self.get_argument("industry")
+    website = self.get_argument("website")
+    description = self.get_argument("description")
 
     if not chinese_name:
 
@@ -58,10 +62,12 @@ class CompanyHandler(BaseHandler):
     info = {
       "chinese_name": chinese_name,
       "english_name": english_name,
-      "industry": industry
+      "industry": industry,
+      "website": website,
+      "description": description
     }
 
-    result = create_company(**info)
+    result = Company().create_company(**info)
 
     if not result["success"]:
 

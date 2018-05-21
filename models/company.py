@@ -64,12 +64,13 @@ class Company(Base):
         res["msg"] = "公司已存在"
         return res
 
-      field = "chinese_name, english_name, industry, website, is_admin, last_login_time, create_time, update_time"
-      values = "'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'" % (args["username"], password, args["email"], encrypt, 1, timestamp(), timestamp(), timestamp())
+      field = "chinese_name, english_name, industry, website, description, create_time, update_time"
+      values = "'%s', '%s', '%s', '%s', '%s', '%s', '%s'" % (args["chinese_name"], args["english_name"], args["industry"], args["website"], args["description"], timestamp(), timestamp())
 
-      self.insert(field, values)
+      result = self.insert(field, values)
 
       res["success"] = True
+      res["company"] = result
       return res
 
     except Exception as e:
