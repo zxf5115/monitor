@@ -20,12 +20,12 @@
             {% for index, user in enumerate(users) %}
             <tr>
                 <td>{{ index+1 }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.create_at }}</td>
+                <td>{{ user['username'] }}</td>
+                <td>{{ user['email'] }}</td>
+                <td>{{ user['create_time'] }}</td>
                 <td>
                     <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red user-delete" type="button"
-                            id="{{ user.id }}">删除</button>
+                            id="{{ user['id'] }}">删除</button>
                 </td>
             </tr>
             {% end %}
