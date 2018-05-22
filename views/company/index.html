@@ -4,22 +4,36 @@ index.html{% extends "../public/base.html" %}
 
 {% include "../public/navbar.html" %}
 
-<div class="content">
-    <div style="margin: 60px 0px 0 20px; width: 300px; ">
-        <form class="form-horizontal" id="SearchForm" method="post" action="/company/search">
-        {% module xsrf_form_html() %}
-          <div class="mdui-textfield">
-            <input class="mdui-textfield-input" type="text" name="search_text" placeholder="Search"/>
-          </div>
-        <button class="mdui-textfield-icon mdui-btn mdui-btn-icon" style="margin-left: 260px; margin-top: -60px">
-            <i class="mdui-icon material-icons">search</i>
-        </button>
-        </form>
+<div class="container">
+    <div class="height70">
+        <div class="mdui-float-left">
+            <form class="form-horizontal" id="SearchForm" method="post" action="/company/search">
+            {% module xsrf_form_html() %}
+              <div class="mdui-textfield mdui-float-left">
+                <input class="mdui-textfield-input" type="text" name="search_text" placeholder="Search"/>
+              </div>
+            <div class="mdui-textfield mdui-float-left">
+                <button class="mdui-btn width40">
+                    提交
+                </button>
+            </div>
+            </form>
+        </div>
+        <div class="mdui-textfield mdui-float-right">
+            <a href="/company/add" class="mdui-btn width40">添加</a>
+        </div>
     </div>
-    <a href="/company/add" class="mdui-btn-xs mdui-ripple" style="margin: -60px 0 0 600px;">+添加</a>
-
-    <div style="margin: 20px 0">
+    <div>
       <table class="mdui-table">
+        <thead>
+            <tr>
+              <th class="col-md-1">ID</th>
+              <th class="col-md-3">企业名称</th>
+              <th class="col-md-2">英文名称</th>
+              <th class="col-md-2">行业</th>
+              <th class="col-md-4">操作</th>
+            </tr>
+        </thead>
         <tbody>
             {% for index, company in enumerate(companies) %}
             <tr>
@@ -28,8 +42,8 @@ index.html{% extends "../public/base.html" %}
                 <td>{{ company['english_name'] }}</td>
                 <td>{{ company['industry'] }}</td>
                 <td>
-                    <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red company-delete" type="button"
-                            id="{{ company['id'] }}">删除</button>
+                    <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-green-800 company-edit" type="button" id="{{ company['id'] }}">编辑</button>
+                    <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red company-delete" type="button" id="{{ company['id'] }}">删除</button>
                 </td>
             </tr>
             {% end %}
@@ -56,6 +70,7 @@ index.html{% extends "../public/base.html" %}
                 data: {'company_id': company_id, '_xsrf': getCookie("_xsrf")},
                 success: function (data) {
                     var res = JSON.parse(data);
+                    console.log(data)
                     if(res["success"] == true){
                         alert(res["msg"]);
                         window.location.reload();

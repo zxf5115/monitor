@@ -60,7 +60,9 @@ class Run:
       # (r"/report/detail/([0-9]+)", ReportDetailHandler),
       (r"/company", CompanyHandler),
       (r"/company/add", CompanyAddHandler),
+      (r"/company/edit", CompanyEditHandler),
       (r"/company/search", CompanySearchHandler),
+      (r"/company/delete", CompanyDeleteHandler),
       # (r"/profile/([0-9]+)", ProfileHandler),
       # (r"/profile/edit/([0-9]+)", ProfileEditHandler),
       # (r"/contact/add/([0-9]+)", ContactAddHandler),
@@ -68,7 +70,7 @@ class Run:
       # (r"/website/add/([0-9]+)", WebsiteAddHandler),
       # (r"/website", WebsiteHandler),
       # (r"/subscription", SubscriptionHandler),
-      # (r"/company/delete", CompanyDeleteHandler),
+
       # (r"/website/delete", WebsiteDeleteHandler),
       (r"/user/manage", UserManageHandler),
       (r"/user/delete", UserDeleteHandler),

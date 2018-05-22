@@ -23,8 +23,7 @@ class CompanyHandler(BaseHandler):
   @tornado.web.authenticated
   def get(self):
 
-    companies = Company().get_user_info(0, '*')
-    print(companies)
+    companies = Company().get_company_info(0, '*')
 
     self.render("company\\index.html", companies=companies)
 
@@ -78,22 +77,8 @@ class CompanyHandler(BaseHandler):
 
       res["success"] = True
       res["msg"] = "创建成功"
-      res["company_id"] = result["company"].id
+      res["company_id"] = result["company"]
       self.write(res)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -106,6 +91,15 @@ class CompanyAddHandler(BaseHandler):
 
     self.render("company\\add.html")
 
+
+
+
+class CompanyEditHandler(BaseHandler):
+
+  @tornado.web.authenticated
+  def get(self):
+
+    self.render("company\\edit.html")
 
 
 
@@ -135,7 +129,13 @@ class CompanyDeleteHandler(BaseHandler):
 
     res = {"success": False, "msg": ""}
     company_id = self.get_argument("company_id")
-    result = delete_company(company_id)
+
+    if not company_id:
+      res["msg"] = "企业编号不能为空"
+      self.finish(res)
+      return
+
+    result = Company().delete_company(company_id)
 
     if not result:
 

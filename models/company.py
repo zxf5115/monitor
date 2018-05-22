@@ -24,29 +24,6 @@ class Company(Base):
 
 
 
-
-# def create_company(**kwargs):
-#     try:
-#         res = {"success": False, "msg": "", 'company': None}
-#         company = session.query(Company).filter_by(name_cn=kwargs["name_cn"]).first()
-#         if company:
-#             res["msg"] = "公司已存在"
-#             return res
-#         session.add(Company(name_cn=kwargs["name_cn"], name_en=kwargs["name_en"], industry=kwargs["industry"]))
-#         # session.commit()
-#         session.flush()
-#         company = session.query(Company).filter_by(name_cn=kwargs["name_cn"]).first()
-#         res["success"] = True
-#         res["company"] = company
-#         return res
-#     except Exception as e:
-#         # print(str(e))
-#         # session.rollback()
-#         res["msg"] = "创建出错"
-#         return res
-
-
-
   # -----------------------------------------------------------------------
   # 创建用户
 
@@ -83,26 +60,26 @@ class Company(Base):
 
 
 
-  def get_user_info(self, uid = 0, field = 'id'):
+  def get_company_info(self, cid = 0, field = 'id'):
 
     try:
 
       res = {"success": False, "msg": ""}
 
-      # if not uid:
+      # if not id:
 
       #   res["msg"] = "UID不能为空"
       #   return res
 
       where = '1'
 
-      if uid:
+      if cid:
 
-        where = "id = '%s'" % (uid)
+        where = "id = '%s'" % (cid)
 
-      user = self.select(field, where)
+      result = self.select(field, where)
 
-      return user
+      return result
 
     except Exception as e:
 
@@ -110,30 +87,20 @@ class Company(Base):
 
 
 
+  def delete_company(self, cid):
 
+    try:
 
+      if cid:
 
-  def authenticate(self, email=None, password=None):
+        where = "id = '%s'" % (cid)
 
-    res = {"success": False, "msg": "", "user_id": None}
+        result = self.delete(where)
 
-    where = "email = '%s'" % (email)
+        return True
 
-    user = self.find('id, encrypt, email, password', where)
+    except Exception as e:
 
-    if not user:
+      # print(e)
+      return False
 
-      res["msg"] = "用户名不存在"
-      return res
-
-    password = decryption(password, user['encrypt'])
-
-    if user['password'] != password:
-      res["msg"] = "用户名与密码不符"
-      return res
-
-    res["success"] = True
-    res["user_id"] = user['id']
-    res["msg"] = "认证成功"
-    return res
-# c9e81949a181e2e1b903530afcbfe563

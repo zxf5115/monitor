@@ -78,7 +78,7 @@ class Mysql:
 
     # SQL 删除语句
     sql = "DELETE FROM `%s` WHERE %s" % (table, where)
-
+    print(sql)
     try:
        # 执行SQL语句
        cursor.execute(sql)
@@ -89,7 +89,7 @@ class Mysql:
        self.db.rollback()
 
     # 关闭连接
-    db.close()
+    self.db.close()
 
 
 
@@ -115,7 +115,7 @@ class Mysql:
        self.db.rollback()
 
     # 关闭数据库连接
-    db.close()
+    self.db.close()
 
 
 
@@ -133,7 +133,7 @@ class Mysql:
 
     # SQL 查询语句
     sql = "SELECT %s FROM %s WHERE %s %s %s " % (field, table, where, group, order)
-    print(sql)
+
     try:
       # 执行SQL语句
       cursor.execute(sql)
