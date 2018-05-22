@@ -1,0 +1,90 @@
+index.html{% extends "../public/base.html" %}
+
+{% block main %}
+
+{% include "../public/navbar.html" %}
+
+<div class="container">
+    <div class="height70">
+        <div class="mdui-float-left">
+            <form class="form-horizontal" id="SearchForm" method="post" action="/company/search">
+            {% module xsrf_form_html() %}
+              <div class="mdui-textfield mdui-float-left">
+                <input class="mdui-textfield-input" type="text" name="search_text" placeholder="Search"/>
+              </div>
+            <div class="mdui-textfield mdui-float-left">
+                <button class="mdui-btn width40">
+                    提交
+                </button>
+            </div>
+            </form>
+        </div>
+        <div class="mdui-textfield mdui-float-right">
+            <a href="/company/add" class="mdui-btn width40">添加</a>
+        </div>
+    </div>
+    <div>
+      <table class="mdui-table">
+        <thead>
+            <tr>
+              <th class="col-md-1">ID</th>
+              <th class="col-md-3">企业名称</th>
+              <th class="col-md-2">英文名称</th>
+              <th class="col-md-2">行业</th>
+              <th class="col-md-4">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, company in enumerate(companies) %}
+            <tr>
+                <td>{{ index+1 }}</td>
+                <td><a href="/profile/{{ company['id'] }}">{{ company['chinese_name'] }}</a></td>
+                <td>{{ company['english_name'] }}</td>
+                <td>{{ company['industry'] }}</td>
+                <td>
+                    <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-green-800 company-edit" type="button" id="{{ company['id'] }}">编辑</button>
+                    <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red company-delete" type="button" id="{{ company['id'] }}">删除</button>
+                </td>
+            </tr>
+            {% end %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+
+<script>
+    var $$ = mdui.JQ;
+
+    function getCookie(name) {
+        var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+        return r ? r[1] : undefined;
+    }
+
+    $$(".company-delete").on('click', function () {
+        if (confirm('是否要删除该公司？')) {
+            var company_id = $$(this).attr("id");
+            $$.ajax({
+                method: 'POST',
+                url: '/company/delete',
+                data: {'company_id': company_id, '_xsrf': getCookie("_xsrf")},
+                success: function (data) {
+                    var res = JSON.parse(data);
+                    console.log(data)
+                    if(res["success"] == true){
+                        alert(res["msg"]);
+                        window.location.reload();
+                    } else {
+                        alert(res["msg"]);
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+
+
+
+
+{% end %}

@@ -25,6 +25,7 @@ from controllers.logout import *
 from controllers.register import *
 from controllers.users import *
 from controllers.subscription import *
+from controllers.company import *
 
 
 
@@ -58,9 +59,11 @@ class Run:
       # (r"/report/add", ReportAddHandler),
       # (r"/report/delete", ReportDeleteHandler),
       # (r"/report/detail/([0-9]+)", ReportDetailHandler),
-      # (r"/company", CompanyHandler),
-      # (r"/company/add", CompanyAddHandler),
-      # (r"/company/search", CompanySearchHandler),
+      (r"/company", CompanyHandler),
+      (r"/company/add", CompanyAddHandler),
+      (r"/company/edit", CompanyEditHandler),
+      (r"/company/search", CompanySearchHandler),
+      (r"/company/delete", CompanyDeleteHandler),
       # (r"/profile/([0-9]+)", ProfileHandler),
       # (r"/profile/edit/([0-9]+)", ProfileEditHandler),
       # (r"/contact/add/([0-9]+)", ContactAddHandler),
@@ -69,6 +72,7 @@ class Run:
       # (r"/website", WebsiteHandler),
       (r"/subscription", SubscriptionHandler),
       # (r"/company/delete", CompanyDeleteHandler),
+      # (r"/subscription", SubscriptionHandler),
       # (r"/website/delete", WebsiteDeleteHandler),
       (r"/user/index", UserHandler),
       (r"/user/delete", UserDeleteHandler),
