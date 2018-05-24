@@ -22,7 +22,7 @@ class RegisterHandler(tornado.web.RequestHandler):
 
   def get(self):
 
-    self.render("register.html")
+    self.render("register\\register.html")
 
 
 

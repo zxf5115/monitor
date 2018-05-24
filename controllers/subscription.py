@@ -18,33 +18,25 @@ from tornado.options import define, options
 from .base import BaseHandler
 from models.users import Users
 
-class UserHandler(BaseHandler):
-
+class SubscriptionHandler(BaseHandler):
   @tornado.web.authenticated
   def get(self):
-
-    users = Users().get_user_info(0, '*')
-    print(users[0])
-    self.render("users\\index.html", users=users)
-
-
-class UserDeleteHandler(BaseHandler):
+    self.render("subscription\\index.html")
 
   @tornado.web.authenticated
   def post(self):
-
     res = {"success": False, "msg": ""}
-    user_id = self.get_argument("user_id")
-    result = delete_user(user_id)
-
-    if not result:
-
-      res["msg"] = "删除失败"
+    email = self.get_argument("email")
+    info = {
+      "username": '订阅者',
+      "email": email,
+      "password": 'globus#2017#subscription'
+    }
+    result = create_user(**info)
+    if not result["success"]:
+      res["msg"] = result["msg"]
       self.finish(res)
-
     else:
-
       res["success"] = True
-      res["msg"] = "删除成功"
+      res["msg"] = "订阅成功"
       self.write(res)
-

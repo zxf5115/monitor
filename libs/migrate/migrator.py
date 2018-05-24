@@ -122,7 +122,7 @@ class Migrator:
       path = r"%s\%s\%s" % (basic_path, self.directory, filename)
 
       # 拼接命令
-      command = "d:\work\Python\python %s %s" % (path, '')
+      command = "python %s %s" % (path, '')
 
       os.system(command)
 

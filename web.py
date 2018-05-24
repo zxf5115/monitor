@@ -24,6 +24,7 @@ from controllers.login import *
 from controllers.logout import *
 from controllers.register import *
 from controllers.users import *
+from controllers.subscription import *
 from controllers.company import *
 
 
@@ -69,10 +70,11 @@ class Run:
       # (r"/contact/delete", ContactDeleteHandler),
       # (r"/website/add/([0-9]+)", WebsiteAddHandler),
       # (r"/website", WebsiteHandler),
+      (r"/subscription", SubscriptionHandler),
+      # (r"/company/delete", CompanyDeleteHandler),
       # (r"/subscription", SubscriptionHandler),
-
       # (r"/website/delete", WebsiteDeleteHandler),
-      (r"/user/manage", UserManageHandler),
+      (r"/user/index", UserHandler),
       (r"/user/delete", UserDeleteHandler),
       # (r"/log", LogHandler),
       # (r"/clean", CleanHandler),
