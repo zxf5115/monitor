@@ -1,0 +1,57 @@
+{% extends "../public/base.html" %}
+
+{% block main %}
+
+{% include "../public/navbar.html" %}
+
+
+<div style="margin: auto; padding: 100px 20px 0 20px; width: 360px;">
+  <form class="form-horizontal" id="CreateCompanyForm" method="post" action="">
+    {% module xsrf_form_html() %}
+      <h2>添加用户</h2>
+      <div class="mdui-textfield">
+          <input class="mdui-textfield-input" type="text" name="username" placeholder="用户名"/>
+      </div>
+      <div class="mdui-textfield">
+          <input class="mdui-textfield-input" type="text" name="password" placeholder="密码"/>
+      </div>
+      <div class="mdui-textfield">
+         <input class="mdui-textfield-input" type="password" name="confirm_password" placeholder="确认密码"/>
+      </div>
+      <div class="mdui-textfield">
+         <input class="mdui-textfield-input" type="text" name="email" placeholder="邮箱"/>
+      </div>
+      <a href="javascript:history.go(-1);" class="mdui-btn mdui-btn-raised mdui-color-red">取消</a>
+      <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-green-800" type="button" id="create-user-submit">添加</button>
+  </form>
+</div>
+
+
+
+<script>
+    var $$ = mdui.JQ;
+
+    $$("#create-user-submit").on('click', function () {
+        var uploadFormData = $$('#CreateCompanyForm').serialize();
+        $$.ajax({
+            method: 'POST',
+            url: '/user/index',
+            data: uploadFormData,
+            success: function (data) {
+                var res = JSON.parse(data);
+                if(res["success"] == true){
+                    window.location.href = "/user/index";
+                } else {
+                    alert(res["msg"]);
+                }
+            }
+        });
+    });
+
+</script>
+
+
+
+
+
+{% end %}

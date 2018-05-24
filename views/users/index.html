@@ -4,8 +4,26 @@
 
 {% include "../public/navbar.html" %}
 
-<div style="margin: 20px;">
-    <div class="mdui-table-fluid" style="margin-top: 60px;">
+<div class="container">
+    <div class="height70">
+        <div class="mdui-float-left">
+            <form class="form-horizontal" id="SearchForm" method="post" action="/user/search">
+            {% module xsrf_form_html() %}
+              <div class="mdui-textfield mdui-float-left">
+                <input class="mdui-textfield-input" type="text" name="keyword" placeholder="Search"/>
+              </div>
+            <div class="mdui-textfield mdui-float-left margin-left-50">
+                <button class="mdui-btn width40">
+                    提交
+                </button>
+            </div>
+            </form>
+        </div>
+        <div class="mdui-textfield mdui-float-right">
+            <a href="/user/add" class="mdui-btn width40">添加</a>
+        </div>
+    </div>
+    <div class="mdui-table-fluid">
       <table class="mdui-table">
         <thead>
           <tr>

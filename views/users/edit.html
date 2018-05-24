@@ -1,0 +1,61 @@
+{% extends "../public/base.html" %}
+
+{% block main %}
+
+{% include "../public/navbar.html" %}
+
+
+<div style="margin: auto; padding: 100px 20px 0 20px; width: 360px;">
+  <form class="form-horizontal" id="CreateCompanyForm" method="post" action="">
+    {% module xsrf_form_html() %}
+      <h2>添加企业</h2>
+      <div class="mdui-textfield">
+          <input class="mdui-textfield-input" type="text" name="chinese_name" placeholder="中文名称"/>
+      </div>
+      <div class="mdui-textfield">
+          <input class="mdui-textfield-input" type="text" name="english_name" placeholder="英文名称"/>
+      </div>
+      <div class="mdui-textfield">
+         <input class="mdui-textfield-input" type="text" name="industry" placeholder="所属行业"/>
+      </div>
+      <div class="mdui-textfield">
+         <input class="mdui-textfield-input" type="text" name="website" placeholder="企业官网"/>
+      </div>
+      <div class="mdui-textfield">
+         <textarea class="mdui-textfield-input" name="description" placeholder="企业描述"></textarea>
+      </div>
+
+      <a href="javascript:history.go(-1);" class="mdui-btn mdui-btn-raised mdui-color-red">取消</a>
+      <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-green-800" type="button" id="create-company-submit">添加</button>
+  </form>
+</div>
+
+
+
+<script>
+    var $$ = mdui.JQ;
+
+    $$("#create-company-submit").on('click', function () {
+        var uploadFormData = $$('#CreateCompanyForm').serialize();
+        $$.ajax({
+            method: 'POST',
+            url: '/company',
+            data: uploadFormData,
+            success: function (data) {
+                var res = JSON.parse(data);
+                if(res["success"] == true){
+                    window.location.href = "/profile/" + res["company_id"];
+                } else {
+                    alert(res["msg"]);
+                }
+            }
+        });
+    });
+
+</script>
+
+
+
+
+
+{% end %}

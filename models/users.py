@@ -61,22 +61,11 @@ class Users(Base):
 
 
 
-  def get_user_info(self, uid = 0, field = 'id'):
+  def get_user_info(self, where = '1', field = 'id'):
 
     try:
 
       res = {"success": False, "msg": ""}
-
-      # if not uid:
-
-      #   res["msg"] = "UID不能为空"
-      #   return res
-
-      where = '1'
-
-      if uid:
-
-        where = "id = '%s'" % (uid)
 
       user = self.select(field, where)
 
