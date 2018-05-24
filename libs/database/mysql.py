@@ -133,7 +133,7 @@ class Mysql:
 
     # SQL 查询语句
     sql = "SELECT %s FROM %s WHERE %s %s %s " % (field, table, where, group, order)
-
+    print(sql)
     try:
       # 执行SQL语句
       cursor.execute(sql)

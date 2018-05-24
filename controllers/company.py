@@ -23,7 +23,7 @@ class CompanyHandler(BaseHandler):
   @tornado.web.authenticated
   def get(self):
 
-    companies = Company().get_company_info(0, '*')
+    companies = Company().get_company_info(1, '*')
 
     self.render("company\\index.html", companies=companies)
 
@@ -113,9 +113,13 @@ class CompanySearchHandler(BaseHandler):
   def post(self):
 
     res = {"success": False, "msg": ""}
-    search_text = self.get_argument("search_text")
-    company_list = search_company(search_text)
-    self.render("company.html", companies=company_list)
+    keyword = self.get_argument("keyword")
+
+    where = r"`chinese_name` LIKE %'%s'%" % (keyword)
+
+    companies = Company().get_company_info(where, '*')
+
+    self.render("company\\index.html", companies=companies)
 
 
 

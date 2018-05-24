@@ -10,9 +10,9 @@ index.html{% extends "../public/base.html" %}
             <form class="form-horizontal" id="SearchForm" method="post" action="/company/search">
             {% module xsrf_form_html() %}
               <div class="mdui-textfield mdui-float-left">
-                <input class="mdui-textfield-input" type="text" name="search_text" placeholder="Search"/>
+                <input class="mdui-textfield-input" type="text" name="keyword" placeholder="Search"/>
               </div>
-            <div class="mdui-textfield mdui-float-left">
+            <div class="mdui-textfield mdui-float-left margin-left-50">
                 <button class="mdui-btn width40">
                     提交
                 </button>

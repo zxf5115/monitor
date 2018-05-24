@@ -60,22 +60,11 @@ class Company(Base):
 
 
 
-  def get_company_info(self, cid = 0, field = 'id'):
+  def get_company_info(self, where = '1', field = 'id'):
 
     try:
 
       res = {"success": False, "msg": ""}
-
-      # if not id:
-
-      #   res["msg"] = "UID不能为空"
-      #   return res
-
-      where = '1'
-
-      if cid:
-
-        where = "id = '%s'" % (cid)
 
       result = self.select(field, where)
 
