@@ -45,3 +45,17 @@ def timestamp():
   timestamp = int(timestamp)
 
   return timestamp
+
+
+
+def time_difference(days = 1):
+
+  today=datetime.date.today()
+
+  oneday=datetime.timedelta(days = days)
+
+  yesterday = today - oneday
+
+  timestamp = int(time.mktime(time.strptime(str(yesterday), '%Y-%m-%d')))
+
+  return timestamp

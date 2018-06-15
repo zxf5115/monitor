@@ -1,0 +1,52 @@
+{% extends "../public/base.html" %}
+
+{% block main %}
+
+{% include "../public/navbar.html" %}
+
+<div class="container">
+  <div class="height70">
+    <div>
+      <table class="mdui-table">
+        <thead>
+          <tr>
+            <th class="col-md-1">ID</th>
+            <th class="col-md-2">日志级别</th>
+            <th class="col-md-3">日志信息</th>
+            <th class="col-md-2">时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for index, log in enumerate(logs) %}
+            <tr>
+                <td>{{ index+1 }}</td>
+                <td>{{ log['level'] }}</td>
+                <td>{{ log['text'] }}</td>
+                <td>{{ log['create_time'] }}</td>
+            </tr>
+            {% end %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div>
+  <div style="margin: 60px 20px;">
+    {% for log in logs %}
+      {% if log['text'].startswith("[NOTICE]") %}
+        <p style="font-size: 10px; color: #000;">#{{ log['id'] }} {{ log['text'] }}</p>
+      {% end %}
+      {% if log['text'].startswith("[RECORD]") %}
+        <p style="font-size: 10px; color: blue;">#{{ log['id'] }} {{ log['text'] }}</p>
+      {% end %}
+      {% if log['text'].startswith("[ERROR]") %}
+        <p style="font-size: 10px; color: red;">#{{ log['id']}} {{ log['text'] }}</p>
+      {% end %}
+    {% end %}
+  </div>
+</div>
+
+
+{% end %}

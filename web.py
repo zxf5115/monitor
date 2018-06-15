@@ -26,6 +26,7 @@ from controllers.register import *
 from controllers.users import *
 from controllers.subscription import *
 from controllers.company import *
+from controllers.logs import *
 
 
 
@@ -79,7 +80,7 @@ class Run:
       (r"/user/edit", UserEditHandler),
       (r"/user/search", UserSearchHandler),
       (r"/user/delete", UserDeleteHandler),
-      # (r"/log", LogHandler),
+      (r"/logs", LogsHandler),
       # (r"/clean", CleanHandler),
     ]
 

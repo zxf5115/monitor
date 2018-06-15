@@ -42,8 +42,8 @@
                 <td>{{ user['email'] }}</td>
                 <td>{{ user['create_time'] }}</td>
                 <td>
-                    <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red user-delete" type="button"
-                            id="{{ user['id'] }}">删除</button>
+                    <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-green-800 user-edit" type="button" id="{{ user['id'] }}">编辑</button>
+                    <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red user-delete" type="button" id="{{ user['id' ]}}">删除</button>
                 </td>
             </tr>
             {% end %}
